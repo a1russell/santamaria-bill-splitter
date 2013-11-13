@@ -15,7 +15,7 @@ class BillShareTest extends Specification {
   }
 
   trait noBottlesOfWine extends context {
-    taxShare() returns BigDecimal("0")
+    taxShare(any[BigDecimal]) returns BigDecimal("0")
     discountShare() returns BigDecimal("0")
     shippingShare() returns BigDecimal("0")
   }
@@ -23,7 +23,7 @@ class BillShareTest extends Specification {
   trait twoBottlesOf2199Wine extends context {
     val pricesOfShareOfWines = List(BigDecimal("21.99"), BigDecimal("21.99"))
 
-    taxShare() returns BigDecimal("2.969")
+    taxShare(any[BigDecimal]) returns BigDecimal("2.969")
     discountShare() returns BigDecimal("2.347")
     shippingShare() returns BigDecimal("10.00")
   }

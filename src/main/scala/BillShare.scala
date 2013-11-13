@@ -7,7 +7,7 @@ extends (List[BigDecimal] => BigDecimal) {
 
   def apply(pricesOfSharesOfWines: List[BigDecimal]): BigDecimal = {
     val subtotal = pricesOfSharesOfWines.sum
-    val tax = taxShare()
+    val tax = taxShare(subtotal)
     val discount = discountShare()
     val shipping = shippingShare()
     (subtotal + tax - discount + shipping).setScale(2, RoundingMode.HALF_UP)
