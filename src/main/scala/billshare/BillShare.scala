@@ -2,10 +2,10 @@ package billshare
 
 import scala.math.BigDecimal.RoundingMode
 
-class BillShare private (taxShare: TaxShare,
-                         discountShare: DiscountShare,
-                         shippingShare: ShippingShare)
-extends (List[BigDecimal] => BigDecimal) {
+class BillShare private(taxShare: TaxShare,
+                        discountShare: DiscountShare,
+                        shippingShare: ShippingShare)
+  extends (List[BigDecimal] => BigDecimal) {
 
   def apply(pricesOfSharesOfWines: List[BigDecimal]): BigDecimal = {
     val subtotal = pricesOfSharesOfWines.sum
