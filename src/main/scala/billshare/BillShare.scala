@@ -1,3 +1,5 @@
+package billshare
+
 import scala.math.BigDecimal.RoundingMode
 
 class BillShare private (taxShare: TaxShare,

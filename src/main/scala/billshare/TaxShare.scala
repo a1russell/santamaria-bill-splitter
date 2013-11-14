@@ -1,3 +1,5 @@
+package billshare
+
 class TaxShare extends (BigDecimal => BigDecimal) {
   private val taxRate = BigDecimal("0.0675")
 
