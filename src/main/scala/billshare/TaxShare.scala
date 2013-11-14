@@ -1,6 +1,6 @@
 package billshare
 
-class TaxShare extends (BigDecimal => BigDecimal) {
+private[billshare] class TaxShare extends (BigDecimal => BigDecimal) {
   private val taxRate = BigDecimal("0.0675")
 
   def apply(subtotalShare: BigDecimal): BigDecimal = {
@@ -8,6 +8,6 @@ class TaxShare extends (BigDecimal => BigDecimal) {
   }
 }
 
-object TaxShare {
+private[billshare] object TaxShare {
   def apply(): TaxShare = new TaxShare
 }

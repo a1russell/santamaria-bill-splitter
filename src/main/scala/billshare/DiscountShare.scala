@@ -1,5 +1,5 @@
 package billshare
 
-class DiscountShare extends (() => BigDecimal) {
+private[billshare] class DiscountShare extends (() => BigDecimal) {
   def apply(): BigDecimal = throw new NotImplementedError
 }
