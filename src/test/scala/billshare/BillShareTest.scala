@@ -10,14 +10,14 @@ import org.specs2.specification.Scope
 class BillShareTest extends Specification {
   "The share of the bill for no wines" should {
     "be $0" in new BillShareTest.noBottlesOfWine {
-      billShare(List()) must be_==(BigDecimal("0"))
+      billShare(List(), 1) must be_==(BigDecimal("0"))
     }
   }
 
   "The share of the bill for two wines costing $21.99 each out of " +
     "four wines total" should {
     "be $54.60" in new BillShareTest.twoBottlesOf2199Wine {
-      billShare(pricesOfShareOfWines) must be_==(BigDecimal("54.60"))
+      billShare(pricesOfShareOfWines, 4) must be_==(BigDecimal("54.60"))
     }
   }
 }
@@ -32,7 +32,7 @@ object BillShareTest {
 
   trait noBottlesOfWine extends context {
     taxShare(any[BigDecimal]) returns BigDecimal("0")
-    discountShare() returns BigDecimal("0")
+    discountShare(any[BigDecimal], any[Int]) returns BigDecimal("0")
     shippingShare() returns BigDecimal("0")
   }
 
@@ -40,7 +40,7 @@ object BillShareTest {
     val pricesOfShareOfWines = List(BigDecimal("21.99"), BigDecimal("21.99"))
 
     taxShare(any[BigDecimal]) returns BigDecimal("2.969")
-    discountShare() returns BigDecimal("2.347")
+    discountShare(any[BigDecimal], any[Int]) returns BigDecimal("2.347")
     shippingShare() returns BigDecimal("10.00")
   }
 }
