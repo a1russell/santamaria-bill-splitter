@@ -6,7 +6,21 @@ import org.specs2.specification.Scope
 
 @RunWith(classOf[JUnitRunner])
 class BillShareTest extends Specification {
+  "The share of the bill for no wines" should {
+    "be $0" in new BillShareTest.noBottlesOfWine {
+      billShare(List()) must be_==(BigDecimal("0"))
+    }
+  }
 
+  "The share of the bill for two wines costing $21.99 each out of " +
+    "four wines total" should {
+    "be $54.60" in new BillShareTest.twoBottlesOf2199Wine {
+      billShare(pricesOfShareOfWines) must be_==(BigDecimal("54.60"))
+    }
+  }
+}
+
+object BillShareTest {
   trait context extends Scope with Mockito {
     val taxShare = mock[TaxShare]
     val discountShare = mock[DiscountShare]
@@ -26,18 +40,5 @@ class BillShareTest extends Specification {
     taxShare(any[BigDecimal]) returns BigDecimal("2.969")
     discountShare() returns BigDecimal("2.347")
     shippingShare() returns BigDecimal("10.00")
-  }
-
-  "The share of the bill for no wines" should {
-    "be $0" in new noBottlesOfWine {
-      billShare(List()) must be_==(BigDecimal("0"))
-    }
-  }
-
-  "The share of the bill for two wines costing $21.99 each out of " +
-    "four wines total" should {
-    "be $54.60" in new twoBottlesOf2199Wine {
-      billShare(pricesOfShareOfWines) must be_==(BigDecimal("54.60"))
-    }
   }
 }
