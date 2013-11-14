@@ -15,4 +15,10 @@ class TaxShareTest extends Specification {
       taxShare(0) must be_==(BigDecimal("0"))
     }
   }
+
+  "The share of the tax for a $43.98 share of the subtotal" should {
+    "be $2.969" in new context {
+      taxShare(BigDecimal("43.98")) must beCloseTo(BigDecimal("2.969"), BigDecimal("0.0005"))
+    }
+  }
 }
