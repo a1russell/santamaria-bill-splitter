@@ -32,15 +32,18 @@ object BillShareTest {
 
   trait noBottlesOfWineOutOfFour extends context {
     taxShare(BigDecimal("0")) returns BigDecimal("0")
-    discountShare(BigDecimal("0"), 4) returns BigDecimal("0")
+    discountShare(BigDecimal("0"), BigDecimal("0"), 4) returns BigDecimal("0")
     shippingShare() returns BigDecimal("0")
   }
 
   trait twoBottlesOf2199WineOutOfFour extends context {
     val pricesOfShareOfWines = List(BigDecimal("21.99"), BigDecimal("21.99"))
 
-    taxShare(BigDecimal("43.98")) returns BigDecimal("2.969")
-    discountShare(BigDecimal("43.98"), 4) returns BigDecimal("2.347")
+    private val subtotal: BigDecimal = BigDecimal("43.98")
+    private val tax: BigDecimal = BigDecimal("2.969")
+
+    taxShare(subtotal) returns tax
+    discountShare(subtotal, tax, 4) returns BigDecimal("2.347")
     shippingShare() returns BigDecimal("10.00")
   }
 }

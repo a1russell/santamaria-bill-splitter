@@ -10,7 +10,7 @@ import org.specs2.specification.Scope
 class DiscountShareTest extends Specification {
   "The share of the discount for no bottles of wine" should {
     "be $0" in new DiscountShareTest.fourTotalBottlesOfWine {
-      discountShare(BigDecimal("0"), 4) must be_==(BigDecimal("0"))
+      discountShare(BigDecimal("0"), BigDecimal("0"), 4) must be_==(BigDecimal("0"))
     }
   }
 }

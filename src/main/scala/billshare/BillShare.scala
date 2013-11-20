@@ -10,7 +10,7 @@ class BillShare private(taxShare: TaxShare,
   def apply(pricesOfSharesOfWines: List[BigDecimal], totalNumberOfWines: Int): BigDecimal = {
     val subtotal = pricesOfSharesOfWines.sum
     val tax = taxShare(subtotal)
-    val discount = discountShare(subtotal, totalNumberOfWines)
+    val discount = discountShare(subtotal, tax, totalNumberOfWines)
     val shipping = shippingShare()
     (subtotal + tax - discount + shipping).setScale(2, RoundingMode.HALF_UP)
   }
