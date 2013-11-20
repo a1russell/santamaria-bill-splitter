@@ -9,14 +9,14 @@ import org.specs2.specification.Scope
 @RunWith(classOf[JUnitRunner])
 class BillShareTest extends Specification {
   "The share of the bill for no wines" should {
-    "be $0" in new BillShareTest.noBottlesOfWine {
-      billShare(List(), 1) must be_==(BigDecimal("0"))
+    "be $0" in new BillShareTest.noBottlesOfWineOutOfFour {
+      billShare(List(), 4) must be_==(BigDecimal("0"))
     }
   }
 
   "The share of the bill for two wines costing $21.99 each out of " +
     "four wines total" should {
-    "be $54.60" in new BillShareTest.twoBottlesOf2199Wine {
+    "be $54.60" in new BillShareTest.twoBottlesOf2199WineOutOfFour {
       billShare(pricesOfShareOfWines, 4) must be_==(BigDecimal("54.60"))
     }
   }
@@ -30,17 +30,17 @@ object BillShareTest {
     val billShare = BillShare(taxShare, discountShare, shippingShare)
   }
 
-  trait noBottlesOfWine extends context {
-    taxShare(any[BigDecimal]) returns BigDecimal("0")
-    discountShare(any[BigDecimal], any[Int]) returns BigDecimal("0")
+  trait noBottlesOfWineOutOfFour extends context {
+    taxShare(BigDecimal("0")) returns BigDecimal("0")
+    discountShare(BigDecimal("0"), 4) returns BigDecimal("0")
     shippingShare() returns BigDecimal("0")
   }
 
-  trait twoBottlesOf2199Wine extends context {
+  trait twoBottlesOf2199WineOutOfFour extends context {
     val pricesOfShareOfWines = List(BigDecimal("21.99"), BigDecimal("21.99"))
 
-    taxShare(any[BigDecimal]) returns BigDecimal("2.969")
-    discountShare(any[BigDecimal], any[Int]) returns BigDecimal("2.347")
+    taxShare(BigDecimal("43.98")) returns BigDecimal("2.969")
+    discountShare(BigDecimal("43.98"), 4) returns BigDecimal("2.347")
     shippingShare() returns BigDecimal("10.00")
   }
 }
