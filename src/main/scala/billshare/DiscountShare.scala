@@ -6,7 +6,7 @@ private[billshare] class DiscountShare private(discountRate: DiscountRate)
   def apply(subtotalShare: BigDecimal,
             taxShare: BigDecimal,
             totalNumberOfWines: Int): BigDecimal = {
-    BigDecimal("0")
+    discountRate(totalNumberOfWines) * (subtotalShare + taxShare)
   }
 }
 

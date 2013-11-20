@@ -13,6 +13,13 @@ class DiscountShareTest extends Specification {
       discountShare(BigDecimal("0"), BigDecimal("0"), 4) must be_==(BigDecimal("0"))
     }
   }
+
+  "The share of the discount for a $43.98 share of the subtotal" should {
+    "be $2.347" in new DiscountShareTest.fourTotalBottlesOfWine {
+      discountShare(BigDecimal("43.98"), BigDecimal("2.969"), 4) must
+        beCloseTo(BigDecimal("2.347"), BigDecimal("0.0005"))
+    }
+  }
 }
 
 object DiscountShareTest {
