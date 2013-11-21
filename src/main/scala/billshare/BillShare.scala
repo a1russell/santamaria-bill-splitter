@@ -11,7 +11,7 @@ class BillShare private(taxShare: TaxShare,
     val subtotal = pricesOfSharesOfWines.sum
     val tax = taxShare(subtotal)
     val discount = discountShare(subtotal, tax, totalNumberOfWines)
-    val shipping = shippingShare()
+    val shipping = shippingShare(pricesOfSharesOfWines.length)
     (subtotal + tax - discount + shipping).setScale(2, RoundingMode.HALF_UP)
   }
 }

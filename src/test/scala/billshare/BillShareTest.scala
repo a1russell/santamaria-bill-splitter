@@ -33,7 +33,7 @@ object BillShareTest {
   trait noBottlesOfWineOutOfFour extends context {
     taxShare(BigDecimal("0")) returns BigDecimal("0")
     discountShare(BigDecimal("0"), BigDecimal("0"), 4) returns BigDecimal("0")
-    shippingShare() returns BigDecimal("0")
+    shippingShare(0) returns BigDecimal("0")
   }
 
   trait twoBottlesOf2199WineOutOfFour extends context {
@@ -44,6 +44,6 @@ object BillShareTest {
 
     taxShare(subtotal) returns tax
     discountShare(subtotal, tax, 4) returns BigDecimal("2.347")
-    shippingShare() returns BigDecimal("10.00")
+    shippingShare(pricesOfShareOfWines.length) returns BigDecimal("10.00")
   }
 }
