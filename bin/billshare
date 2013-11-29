@@ -1,0 +1,5 @@
+#!/bin/bash
+
+script_dir=$(dirname $0)
+
+gradle --quiet --parallel --daemon --build-file=$script-dir/../build.gradle run -Pargs="$*" 2> /dev/null
