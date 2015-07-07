@@ -18,11 +18,11 @@ repositories {
 }
 
 dependencies {
-    compile 'org.scala-lang:scala-library:2.10.+'
-    compile 'org.rogach:scallop_2.10:0.9.+'
+    compile 'org.scala-lang:scala-library:2.11.+'
+    compile 'org.rogach:scallop_2.11:0.9.+'
     testCompile 'junit:junit:4.+'
-    testCompile 'org.specs2:specs2_2.10:2.2.+'
-    testCompile 'org.mockito:mockito-all:1.9.+'
+    testCompile 'org.specs2:specs2_2.11:3.3.+'
+    testCompile 'org.mockito:mockito-all:1.10.+'
 }
 
 tasks.withType(ScalaCompile) {
