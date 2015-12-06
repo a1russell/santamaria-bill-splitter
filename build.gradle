@@ -13,6 +13,9 @@ run {
 repositories {
     mavenCentral()
     maven {
+        url "https://dl.bintray.com/scalaz/releases"
+    }
+    maven {
         url "http://oss.sonatype.org/content/repositories/releases"
     }
 }
