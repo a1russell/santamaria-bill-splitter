@@ -1,29 +1,26 @@
 package billshare
 
-import org.junit.runner.RunWith
-import org.specs2.mock.Mockito
-import org.specs2.mutable.Specification
-import org.specs2.runner.JUnitRunner
-import org.specs2.specification.Scope
+import org.mockito.Mockito.when
+import org.scalatest.mock.MockitoSugar
+import org.scalatest.{MustMatchers, WordSpec}
 
-@RunWith(classOf[JUnitRunner])
-class BillShareTest extends Specification {
+class BillShareTest extends WordSpec with MustMatchers {
   "The share of the bill for no wines" should {
     "be $0" in new BillShareTest.noBottlesOfWineOutOfFour {
-      billShare(List(), 4) must be_==(BigDecimal("0"))
+      billShare(List(), 4) must be (BigDecimal("0"))
     }
   }
 
   "The share of the bill for two wines costing $21.99 each out of " +
     "four wines total" should {
     "be $54.60" in new BillShareTest.twoBottlesOf2199WineOutOfFour {
-      billShare(pricesOfShareOfWines, 4) must be_==(BigDecimal("54.60"))
+      billShare(pricesOfShareOfWines, 4) must be (BigDecimal("54.60"))
     }
   }
 }
 
 object BillShareTest {
-  trait context extends Scope with Mockito {
+  trait context extends MockitoSugar {
     val taxShare = mock[TaxShare]
     val discountShare = mock[DiscountShare]
     val shippingShare = mock[ShippingShare]
@@ -31,9 +28,9 @@ object BillShareTest {
   }
 
   trait noBottlesOfWineOutOfFour extends context {
-    taxShare(BigDecimal("0")) returns BigDecimal("0")
-    discountShare(BigDecimal("0"), BigDecimal("0"), 4) returns BigDecimal("0")
-    shippingShare(0, 4) returns BigDecimal("0")
+    when(taxShare(BigDecimal("0"))) thenReturn BigDecimal("0")
+    when(discountShare(BigDecimal("0"), BigDecimal("0"), 4)) thenReturn BigDecimal("0")
+    when(shippingShare(0, 4)) thenReturn BigDecimal("0")
   }
 
   trait twoBottlesOf2199WineOutOfFour extends context {
@@ -43,8 +40,8 @@ object BillShareTest {
     private val tax: BigDecimal = BigDecimal("2.969")
     private val totalNumberOfWines: Int = 4
 
-    taxShare(subtotal) returns tax
-    discountShare(subtotal, tax, totalNumberOfWines) returns BigDecimal("2.347")
-    shippingShare(pricesOfShareOfWines.length, totalNumberOfWines) returns BigDecimal("10.00")
+    when(taxShare(subtotal)) thenReturn tax
+    when(discountShare(subtotal, tax, totalNumberOfWines)) thenReturn BigDecimal("2.347")
+    when(shippingShare(pricesOfShareOfWines.length, totalNumberOfWines)) thenReturn BigDecimal("10.00")
   }
 }
